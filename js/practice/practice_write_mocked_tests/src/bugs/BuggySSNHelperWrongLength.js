@@ -1,7 +1,7 @@
 
 
 
-class BuggySSNHelperWrongLength {
+class SSNHelper {
     isCorrectLength(stringInput) {
         return stringInput.length >= 11; //NOTE ALLOWS LONGER
     }

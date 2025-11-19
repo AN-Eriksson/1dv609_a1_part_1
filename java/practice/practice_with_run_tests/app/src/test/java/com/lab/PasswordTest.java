@@ -1,7 +1,6 @@
 package com.lab;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterAll;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,9 +24,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PasswordTest {
     private IPassword getPassword(String s) throws Exception {
-//        return (IPassword) new Password(s);
-         return (IPassword) new BugDoesNotTrim(s);
-        // return (IPassword) new BugToShortPassword(s);
+        return (IPassword) new Password(s);
+        // return (IPassword) new BugDoesNotTrim(s);
+//         return (IPassword) new BugToShortPassword(s);
         // return (IPassword) new BugToShortPassword(s);
         // return (IPassword) new BugVeryShort(s);
         // return (IPassword) new BugWrongExceptionMessage(s);
@@ -49,6 +48,13 @@ public class PasswordTest {
         assertTrue(p1.isPasswordSame(p2));
 
         assertTrue(p1.isPasswordSame(p2));
+    }
+
+    @Test
+    public void constructorShouldThrowOnShortPassword() throws Exception {
+        Exception exception = assertThrows(Exception.class, () -> {
+            getPassword("0123456789x"); // 11 chars
+        });
     }
 
 }

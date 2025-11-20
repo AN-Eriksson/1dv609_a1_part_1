@@ -23,13 +23,15 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 public class PasswordTest {
+    private static final String ELEVEN_CHARS = "01234567891";
+
     private IPassword getPassword(String s) throws Exception {
-//        return (IPassword) new Password(s);
+        return (IPassword) new Password(s);
         // return (IPassword) new BugDoesNotTrim(s);
 //         return (IPassword) new BugToShortPassword(s);
         // return (IPassword) new BugToShortPassword(s);
-         return (IPassword) new BugVeryShort(s);
-        // return (IPassword) new BugWrongExceptionMessage(s);
+//         return (IPassword) new BugVeryShort(s);
+//         return (IPassword) new BugWrongExceptionMessage(s);
         // return (IPassword) new BugMissingPasswordLengthCheck(s);
         // return (IPassword) new BugMissingNumberCheck(s);
         // return (IPassword) new BugIsPasswordSameAlwaysTrue(s);
@@ -45,23 +47,19 @@ public class PasswordTest {
     public void constructorShouldTrimWhitespaceFromPasswordInput() throws Exception {
         IPassword p1 = getPassword("1234567891011");
         IPassword p2 = getPassword(" 1234567891011 ");
-        assertTrue(p1.isPasswordSame(p2));
 
         assertTrue(p1.isPasswordSame(p2));
     }
 
     @Test
     public void constructorShouldThrowOnTooShortPassword() {
-        String elevenChars = "01234567891";
-        Exception ex = assertThrows(Exception.class, () -> getPassword(elevenChars));
-        System.out.println(ex.getMessage());
-        assertEquals("To short password", ex.getMessage());
+        assertThrows(Exception.class, () -> getPassword(ELEVEN_CHARS));
     }
 
-
-
-
-
-
+    @Test
+    public void constructorShouldThrowWithCorrectExceptionMessage() {
+        Exception ex = assertThrows(Exception.class, () -> getPassword(ELEVEN_CHARS));
+        assertEquals("To short password", ex.getMessage());
+    }
 
 }

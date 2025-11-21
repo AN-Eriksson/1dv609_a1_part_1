@@ -68,7 +68,7 @@ public class PasswordTest {
     }
 
     @Test
-    public void constructorShouldThrowIfPasswordsSame() throws Exception {
+    public void constructorShouldThrowIfDifferentPasswordsAreSame() throws Exception {
         IPassword p1 = getPassword("1234567891011");
         IPassword p2 = getPassword("1234567891012");
 
@@ -76,7 +76,7 @@ public class PasswordTest {
     }
 
     @Test
-    public void simpleHashShouldReturnExpectedHash() throws Exception {
+    public void simpleHashShouldCreateExpectedHash() throws Exception {
         IPassword password = getPassword("andreasandreas1");
         int expectedHash = -1914874678;
 

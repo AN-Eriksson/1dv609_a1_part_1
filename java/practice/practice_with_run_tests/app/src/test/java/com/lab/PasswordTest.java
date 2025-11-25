@@ -29,18 +29,12 @@ public class PasswordTest {
         return (IPassword) new Password(s);
 //         return (IPassword) new BugDoesNotTrim(s);
 //         return (IPassword) new BugToShortPassword(s);
-//         return (IPassword) new BugToShortPassword(s);
 //         return (IPassword) new BugVeryShort(s);
 //         return (IPassword) new BugWrongExceptionMessage(s);
 //         return (IPassword) new BugMissingPasswordLengthCheck(s);
 //         return (IPassword) new BugMissingNumberCheck(s);
 //         return (IPassword) new BugIsPasswordSameAlwaysTrue(s);
 //         return (IPassword) new BugWrongHashingAlgorithm(s);
-    }
-
-    @Test
-    public void shouldAlwaysPass() throws Exception {
-        assertTrue(true);
     }
 
     @Test
@@ -52,12 +46,7 @@ public class PasswordTest {
     }
 
     @Test
-    public void constructorShouldThrowOnTooShortPassword() {
-        assertThrows(Exception.class, () -> getPassword(ELEVEN_CHARS));
-    }
-
-    @Test
-    public void constructorShouldThrowWithCorrectExceptionMessage() {
+    public void constructorShouldThrowOnTooShortPasswordWithCorrectExceptionMessage() {
         Exception ex = assertThrows(Exception.class, () -> getPassword(ELEVEN_CHARS));
         assertEquals("To short password", ex.getMessage());
     }

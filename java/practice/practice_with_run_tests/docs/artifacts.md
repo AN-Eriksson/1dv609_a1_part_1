@@ -1,8 +1,8 @@
-| Version       | Password |  NoTrim  | TooShort | VeryShort | WrongMessage | NoLengthCheck | NoNumber | PwSameAlwaysTrue | WrongHash | NewBuggy| 
-|---------------|:--------:|:--------:|:--------:|:---------:|:------------:|:-------------:|----------|------------------|------|----------|
-| Test name 1   |    ✅     |    ❌     |    ✅     |     ✅     |      ❌       |       ✅       |          |                  |  |  |
-| Test name 2   |    ❌     |    ❌     |    ❌     |     ✅     |      ✅       |       ❌       |          |                  |  |  |
-| Test name 3   |    ✅     |    ✅     |    ❌     |     ❌     |      ✅       |       ❌       |          |                  |  |  |
-| Test name 4   |    ❌     |    ❌     |    ✅     |     ❌     |      ❌       |       ✅       |          |                  |  |  |
-| Test name 5   |    ✅     |    ❌     |    ❌     |     ❌     |      ❌       |       ❌       |          |                  |  | |
-| **Coverage**  | **100%** | **100%** | **100%** | **100%**  |   **100%**   |   **100%**    |          |                  |        |  |
+| Version                                                             | Password | NoTrim | TooShort | VeryShort | WrongExMessage | NoLengthCheck | NoNumber | PwSameAlwaysTrue | WrongHash |    NewBuggy    |
+|---------------------------------------------------------------------|:--------:|:------:|:--------:|:---------:|:--------------:|:-------------:|:--------:|:----------------:|:---------:|:--------------:|
+| constructorShouldTrimWhitespaceFromPasswordInput                    |    ✅    |   ❌   |    ✅    |    ✅     |       ✅        |       ✅       |    ✅    |       ✅         |     ✅     |       ✅        |
+| constructorShouldThrowOnTooShortPasswordWithCorrectExceptionMessage |    ✅    |   ✅   |    ❌    |    ❌     |       ❌        |       ❌       |   ✅     |       ✅         |     ✅     |       ✅        |
+| constructorShouldThrowIfPasswordLacksNumber                         |    ✅    |   ✅   |    ✅    |    ✅     |       ✅        |       ✅       |   ❌     |       ✅         |     ✅     |       ✅        |
+| constructorShouldThrowIfDifferentPasswordsAreSame                   |    ✅    |   ✅   |    ✅    |    ✅     |       ✅        |       ✅       |   ✅     |       ❌         |     ✅     |       ✅        |
+| simpleHashShouldCreateExpectedHash                                  |    ✅    |   ✅   |    ✅    |    ✅     |       ✅        |       ✅       |   ✅     |       ✅         |     ❌     |       ✅        |
+| **Coverage (Missed Branches)**                                      | **100%**| **90%**| **80%**  | **80%**   |   **100%**     |   **100%**    | **100%**|   **100%**      | **100%**  |    **100%**    |

@@ -1,6 +1,6 @@
 package com.lab;
 
-public class BuggySwedishSocialSecurityNumberNoTrim {
+public class BuggySwedishSocialSecurityNumberNoTrim implements SSN {
     private SSNHelper helper;
     private String ssn;
     

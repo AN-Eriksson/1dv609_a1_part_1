@@ -33,6 +33,14 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class SwedishSocialSecurityNumberTest {
 
+    private SSN getSSN(String stringInput) throws Exception {
+//        return new SwedishSocialSecurityNumber(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberNoLenCheck(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberNoTrim(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
+    }
+
     @Mock
     private SSNHelper ssnHelper;
 
@@ -45,7 +53,8 @@ public class SwedishSocialSecurityNumberTest {
         when(ssnHelper.isValidDay("01")).thenReturn(true);
         when(ssnHelper.luhnIsCorrect("900101-0017")).thenReturn(true);
 
-        SwedishSocialSecurityNumber ssn = new SwedishSocialSecurityNumber("900101-0017", ssnHelper);
+        // Create SUT
+        SSN ssn = getSSN("900101-0017");
 
         // Asserts
         assertEquals("90", ssn.getYear());

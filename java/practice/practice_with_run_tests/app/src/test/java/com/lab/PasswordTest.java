@@ -26,14 +26,14 @@ public class PasswordTest {
     private static final String ELEVEN_CHARS = "01234567891";
 
     private IPassword getPassword(String s) throws Exception {
-//        return (IPassword) new Password(s);
+        return (IPassword) new Password(s);
 //         return (IPassword) new BugDoesNotTrim(s);
 //         return (IPassword) new BugToShortPassword(s);
 //         return (IPassword) new BugVeryShort(s);
 //         return (IPassword) new BugWrongExceptionMessage(s);
 //         return (IPassword) new BugMissingPasswordLengthCheck(s);
 //         return (IPassword) new BugMissingNumberCheck(s);
-         return (IPassword) new BugIsPasswordSameAlwaysTrue(s);
+//         return (IPassword) new BugIsPasswordSameAlwaysTrue(s);
 //         return (IPassword) new BugWrongHashingAlgorithm(s);
 //        return (IPassword) new NewBuggyVersion(s);
     }

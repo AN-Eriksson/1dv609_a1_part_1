@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 //public class SwedishSocialSecurityNumberTest {
 //
@@ -33,5 +35,30 @@ public class SwedishSocialSecurityNumberTest {
 
     @Mock
     private SSNHelper ssnHelper;
+
+    @Test
+    public void shouldCreateValidSSNWHenAllChecksPass() throws Exception {
+        // Setup mock
+        when(ssnHelper.isCorrectLength("900101-0017")).thenReturn(true);
+        when(ssnHelper.isCorrectFormat("900101-0017")).thenReturn(true);
+        when(ssnHelper.isValidMonth("01")).thenReturn(true);
+        when(ssnHelper.isValidDay("01")).thenReturn(true);
+        when(ssnHelper.luhnIsCorrect("900101-0017")).thenReturn(true);
+
+        SwedishSocialSecurityNumber ssn = new SwedishSocialSecurityNumber("900101-0017", ssnHelper);
+
+        // Asserts
+        assertEquals("90", ssn.getYear());
+        assertEquals("01", ssn.getMonth());
+        assertEquals("01", ssn.getDay());
+        assertEquals("0017", ssn.getSerialNumber());
+
+        // Verify calls to mock
+        verify(ssnHelper).isCorrectLength("900101-0017");
+        verify(ssnHelper).isCorrectFormat("900101-0017");
+        verify(ssnHelper).isValidMonth("01");
+        verify(ssnHelper).isValidDay("01");
+        verify(ssnHelper).luhnIsCorrect("900101-0017");
+    }
 
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SSNHelperTest {
     private ISSNHelper ssnHelper;
@@ -18,8 +19,8 @@ public class SSNHelperTest {
         // Choose implementation to test
 
 //        return new SSNHelper();
-        return new BuggySSNHelperWrongLength();
-//        return new BuggySSNHelperIncorrectFormat();
+//        return new BuggySSNHelperWrongLength();
+        return new BuggySSNHelperIncorrectFormat();
 //        return new BuggySSNHelperIncorrectFormatFalse();
 //        return new BuggySSNHelperAllowMonth0();
 //        return new BuggySSNHelperAllowDayUpTo30();
@@ -30,5 +31,10 @@ public class SSNHelperTest {
     public void isCorrectLengthShouldReturnFalseOnIncorrectLength() throws Exception {
         assertFalse(this.ssnHelper.isCorrectLength("tenCharsXX"));
         assertFalse(this.ssnHelper.isCorrectLength("twelveCharsX"));
+    }
+
+    @Test
+    public void isCorrectFormatShouldReturnFalseOnIncorrectFormat() {
+        assertFalse(this.ssnHelper.isCorrectFormat("9001010017"));
     }
 }

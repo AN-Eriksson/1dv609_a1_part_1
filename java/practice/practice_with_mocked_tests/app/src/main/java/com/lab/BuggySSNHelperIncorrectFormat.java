@@ -1,6 +1,6 @@
 package com.lab;
 
-public class BuggySSNHelperIncorrectFormat {
+public class BuggySSNHelperIncorrectFormat implements ISSNHelper {
     
     public boolean isCorrectLength(String stringInput) {
         return stringInput.length() == 11;

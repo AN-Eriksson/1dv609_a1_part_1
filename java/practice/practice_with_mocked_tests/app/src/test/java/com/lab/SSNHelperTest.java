@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class SSNHelperTest {
-    private SSNHelper ssnHelper;
+    private ISSNHelper ssnHelper;
 
     @BeforeEach
     public void instantiateHelper() throws Exception {
         this.ssnHelper = getSSNHelper();
     }
 
-    private SSNHelper getSSNHelper() throws Exception {
+    private ISSNHelper getSSNHelper() throws Exception {
         // Choose implementation to test
 
-        return new SSNHelper();
-//        return new BuggySSNHelperWrongLength();
+//        return new SSNHelper();
+        return new BuggySSNHelperWrongLength();
 //        return new BuggySSNHelperIncorrectFormat();
 //        return new BuggySSNHelperIncorrectFormatFalse();
 //        return new BuggySSNHelperAllowMonth0();

@@ -1,6 +1,6 @@
 package com.lab;
 
-public class SSNHelper {
+public class SSNHelper implements ISSNHelper {
     
     public boolean isCorrectLength(String stringInput) {
         return stringInput.length() == 11; // YYMMDD-XXXX

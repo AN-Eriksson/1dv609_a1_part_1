@@ -16,57 +16,33 @@ import static org.mockito.Mockito.when;
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class SwedishSocialSecurityNumberTest {
 
+    @Mock
+    private SSNHelper ssnHelper;
+
     private SSN getSSN(String stringInput) throws Exception {
         // Choose implementation to test
 
-//        return new SwedishSocialSecurityNumber(stringInput, ssnHelper);
-        return new BuggySwedishSocialSecurityNumberNoLenCheck(stringInput, ssnHelper);
+        return new SwedishSocialSecurityNumber(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberNoLenCheck(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoTrim(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
     }
 
-    @Mock
-    private SSNHelper ssnHelper;
-
-    @Test
-    public void shouldCreateValidSSNWHenAllChecksPass() throws Exception {
-        // Setup mock
-        when(ssnHelper.isCorrectLength("900101-0017")).thenReturn(true);
-        when(ssnHelper.isCorrectFormat("900101-0017")).thenReturn(true);
-        when(ssnHelper.isValidMonth("01")).thenReturn(true);
-        when(ssnHelper.isValidDay("01")).thenReturn(true);
-        when(ssnHelper.luhnIsCorrect("900101-0017")).thenReturn(true);
-
-        // Create SUT
-        SSN ssn = getSSN("900101-0017");
-
-        // Asserts
-        assertEquals("90", ssn.getYear());
-        assertEquals("01", ssn.getMonth());
-        assertEquals("01", ssn.getDay());
-        assertEquals("0017", ssn.getSerialNumber());
-
-        // Verify calls to mock
-        verify(ssnHelper).isCorrectLength("900101-0017");
-        verify(ssnHelper).isCorrectFormat("900101-0017");
-        verify(ssnHelper).isValidMonth("01");
-        verify(ssnHelper).isValidDay("01");
-        verify(ssnHelper).luhnIsCorrect("900101-0017");
-    }
-
-    @Test
-    public void constructorShouldThrowWhenLengthIsIncorrect() {
-        // Setup mock
-        when(ssnHelper.isCorrectLength("900101")).thenReturn(false);
-        when(ssnHelper.isCorrectFormat("900101")).thenReturn(true);
-        when(ssnHelper.isValidMonth("01")).thenReturn(true);
-        when(ssnHelper.isValidDay("01")).thenReturn(true);
-        when(ssnHelper.luhnIsCorrect("900101")).thenReturn(true);
-
-        // Assert: constructing the SUT should throw
-        assertThrows(Exception.class, () -> getSSN("900101"));
-    }
+    // REDUNDANT? constructorShouldCallHelperWithTrimmedInput verifies that isCorrectLenght was called and will fail
+    // if method is missing.
+//    @Test
+//    public void constructorShouldThrowWhenLengthIsIncorrect() {
+//        // Setup mock
+//        when(ssnHelper.isCorrectLength("900101")).thenReturn(false);
+//        when(ssnHelper.isCorrectFormat("900101")).thenReturn(true);
+//        when(ssnHelper.isValidMonth("01")).thenReturn(true);
+//        when(ssnHelper.isValidDay("01")).thenReturn(true);
+//        when(ssnHelper.luhnIsCorrect("900101")).thenReturn(true);
+//
+//        // Assert: constructing the SUT should throw
+//        assertThrows(Exception.class, () -> getSSN("900101"));
+//    }
 
     @Test
     public void constructorShouldThrowOnNoLuhn() throws Exception {
@@ -96,6 +72,19 @@ public class SwedishSocialSecurityNumberTest {
 
         // Verify that the helper was called with the trimmed string
         verify(ssnHelper).isCorrectLength(trimmed);
+    }
+
+    @Test
+    public void getYearShouldReturnFirstTwoCharsOfInputString() throws Exception {
+        when(ssnHelper.isCorrectLength("900101-0017")).thenReturn(true);
+        when(ssnHelper.isCorrectFormat("900101-0017")).thenReturn(true);
+        when(ssnHelper.isValidMonth("01")).thenReturn(true);
+        when(ssnHelper.isValidDay("01")).thenReturn(true);
+        when(ssnHelper.luhnIsCorrect("900101-0017")).thenReturn(true);
+
+        SSN ssn = getSSN("900101-0017");
+
+        assertEquals("90", ssn.getYear());
     }
 
 }

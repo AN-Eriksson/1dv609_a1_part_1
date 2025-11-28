@@ -22,8 +22,8 @@ public class SSNHelperTest {
 //        return new BuggySSNHelperIncorrectFormat();
 //        return new BuggySSNHelperIncorrectFormatFalse();
 //        return new BuggySSNHelperAllowMonth0();
-//        return new BuggySSNHelperAllowDayUpTo30();
-        return new BuggySSNHelperMessyLuhn();
+        return new BuggySSNHelperAllowDayUpTo30();
+//        return new BuggySSNHelperMessyLuhn();
     }
 
     @Test

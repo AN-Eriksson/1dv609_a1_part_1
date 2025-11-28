@@ -24,9 +24,9 @@ public class SwedishSocialSecurityNumberTest {
 
 //        return new SwedishSocialSecurityNumber(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoLenCheck(stringInput, ssnHelper);
-        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoTrim(stringInput, ssnHelper);
-//        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
+        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
     }
 
     // REDUNDANT? constructorShouldCallHelperWithTrimmedInput verifies that isCorrectLenght was called and will fail

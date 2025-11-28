@@ -1,6 +1,6 @@
 package com.lab;
 
-public class BuggySSNHelperAllowDayUpTo30 {
+public class BuggySSNHelperAllowDayUpTo30 implements ISSNHelper {
     
     public boolean isCorrectLength(String stringInput) {
         return stringInput.length() == 11; // YYMMDD-XXXX

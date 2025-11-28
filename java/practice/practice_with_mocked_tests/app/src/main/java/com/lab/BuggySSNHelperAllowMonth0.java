@@ -1,6 +1,6 @@
 package com.lab;
 
-public class BuggySSNHelperAllowMonth0 {
+public class BuggySSNHelperAllowMonth0 implements ISSNHelper {
     
     public boolean isCorrectLength(String stringInput) {
         return stringInput.length() >= 11; 

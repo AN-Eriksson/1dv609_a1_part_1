@@ -8,6 +8,7 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
+    id 'jacoco'
 }
 
 repositories {
@@ -43,13 +44,49 @@ application {
     mainClass = 'com.lab.Main'
 }
 
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-    jvmArgs '-XX:+EnableDynamicAgentLoading'
+jacoco {
+    toolVersion = '0.8.11'
+}
 
+tasks.test {
+    useJUnitPlatform()
+    outputs.upToDateWhen { false }
+
+    jvmArgs += ["-XX:+EnableDynamicAgentLoading"]
+
+    // continue the build even if tests fail so the report runs
+    ignoreFailures = true
+
+    // stable jacoco exec file so the report task can always read it
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/test.exec")
+    }
+
+    // show failures and standard output in console
     testLogging {
         events "passed", "skipped", "failed"
         showStandardStreams = true
     }
+
+    // run the report after tests
+    finalizedBy(tasks.named('jacocoTestReport'))
 }
+
+jacocoTestReport {
+    dependsOn(tasks.test)
+
+    // point to the same exec produced by the test task
+    executionData file("$buildDir/jacoco/test.exec")
+
+    // ensure class/source dirs are correct for the report
+    classDirectories.setFrom files(sourceSets.main.output.classesDirs.files.collect {
+        fileTree(dir: it, exclude: ['**/generated/**'])
+    })
+    sourceDirectories.setFrom files(sourceSets.main.allSource.srcDirs)
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+

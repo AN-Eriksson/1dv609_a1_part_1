@@ -22,27 +22,27 @@ public class SwedishSocialSecurityNumberTest {
     private SSN getSSN(String stringInput) throws Exception {
         // Choose implementation to test
 
-        return new SwedishSocialSecurityNumber(stringInput, ssnHelper);
+//        return new SwedishSocialSecurityNumber(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoLenCheck(stringInput, ssnHelper);
-//        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
+        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoTrim(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
     }
 
     // REDUNDANT? constructorShouldCallHelperWithTrimmedInput verifies that isCorrectLenght was called and will fail
     // if method is missing.
-//    @Test
-//    public void constructorShouldThrowWhenLengthIsIncorrect() {
-//        // Setup mock
-//        when(ssnHelper.isCorrectLength("900101")).thenReturn(false);
-//        when(ssnHelper.isCorrectFormat("900101")).thenReturn(true);
-//        when(ssnHelper.isValidMonth("01")).thenReturn(true);
-//        when(ssnHelper.isValidDay("01")).thenReturn(true);
-//        when(ssnHelper.luhnIsCorrect("900101")).thenReturn(true);
-//
-//        // Assert: constructing the SUT should throw
-//        assertThrows(Exception.class, () -> getSSN("900101"));
-//    }
+    @Test
+    public void constructorShouldThrowWhenLengthIsIncorrect() {
+        // Setup mock
+        when(ssnHelper.isCorrectLength("900101")).thenReturn(false);
+        when(ssnHelper.isCorrectFormat("900101")).thenReturn(true);
+        when(ssnHelper.isValidMonth("01")).thenReturn(true);
+        when(ssnHelper.isValidDay("01")).thenReturn(true);
+        when(ssnHelper.luhnIsCorrect("900101")).thenReturn(true);
+
+        // Assert: constructing the SUT should throw
+        assertThrows(Exception.class, () -> getSSN("900101"));
+    }
 
     @Test
     public void constructorShouldThrowOnNoLuhn() throws Exception {

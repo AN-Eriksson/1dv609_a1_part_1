@@ -26,7 +26,8 @@ public class SwedishSocialSecurityNumberTest {
 //        return new BuggySwedishSocialSecurityNumberNoLenCheck(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoLuhn(stringInput, ssnHelper);
 //        return new BuggySwedishSocialSecurityNumberNoTrim(stringInput, ssnHelper);
-        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
+//        return new BuggySwedishSocialSecurityNumberWrongYear(stringInput, ssnHelper);
+        return new BuggySwedishSocialSecurityNumberNoFormatCheck(stringInput, ssnHelper);
     }
 
     // REDUNDANT? constructorShouldCallHelperWithTrimmedInput verifies that isCorrectLenght was called and will fail
@@ -85,6 +86,17 @@ public class SwedishSocialSecurityNumberTest {
         SSN ssn = getSSN("900101-0017");
 
         assertEquals("90", ssn.getYear());
+    }
+
+    @Test
+    public void constructorShouldThrowOnIncorrectFormat() {
+        when(ssnHelper.isCorrectLength("900101_0017")).thenReturn(true);
+        when(ssnHelper.isCorrectFormat("900101_0017")).thenReturn(false);
+        when(ssnHelper.isValidMonth("01")).thenReturn(true);
+        when(ssnHelper.isValidDay("01")).thenReturn(true);
+        when(ssnHelper.luhnIsCorrect("900101_0017")).thenReturn(true);
+
+        assertThrows(Exception.class, ()-> getSSN("900101_0017"));
     }
 
 }

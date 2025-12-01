@@ -17,12 +17,12 @@ public class SSNHelperTest {
     private ISSNHelper getSSNHelper() throws Exception {
         // Choose implementation to test
 
-//        return new SSNHelper();
+        return new SSNHelper();
 //        return new BuggySSNHelperWrongLength();
 //        return new BuggySSNHelperIncorrectFormat();
 //        return new BuggySSNHelperIncorrectFormatFalse();
 //        return new BuggySSNHelperAllowMonth0();
-        return new BuggySSNHelperAllowDayUpTo30();
+//        return new BuggySSNHelperAllowDayUpTo30();
 //        return new BuggySSNHelperMessyLuhn();
     }
 
